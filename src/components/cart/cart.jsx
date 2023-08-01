@@ -1,7 +1,9 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/firebase';
 import { collection, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { FaShoppingBasket, FaTrash} from 'react-icons/fa';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -62,6 +64,18 @@ const Cart = () => {
     const updatedCartItems = cartItems.filter((item) => item.id !== id);
     setCartItems(updatedCartItems);
   };
+
+  const handleClearCart = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'basket'));
+      const deletePromises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
+      await Promise.all(deletePromises);
+      setCartItems([]);
+      console.log('Sepet başarıyla temizlendi.');
+    } catch (error) {
+      console.error('Hata oluştu:', error);
+    }
+  };
   
   const handleChangeQuantity = (id, newQuantity) => {
     const quantity = isNaN(newQuantity) || newQuantity < 1 ? 1 : parseInt(newQuantity);
@@ -73,7 +87,8 @@ const Cart = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="mb-3">Sepet</h1>
+      <h1 className="mb-3"><FaShoppingBasket /> Sepet </h1>
+      <div className="table-responsive">
       <table className="table table-bordered table-hover">
         <thead className="thead-light">
           <tr>
@@ -87,12 +102,11 @@ const Cart = () => {
         </thead>
         <tbody>
           {cartItems.map((item) => (
-            <tr key={item.id}>
-              <td><img src={item.picture} style={{ width: '20%' }} alt={item.name} /></td>
+            <tr className="align-middle" key={item.id}>
+              <td><img src={item.picture} style={{ width: '50%' }} alt={item.name} /></td>
               <td>{item.name}</td>
               <td>{item.price} TL</td>
               <td>
-                {/* <button className="btn btn-sm btn-secondary" onClick={() => handleDecrement(item.id)}>-</button> */}
                 <input
                   type="number"
                   min="1"
@@ -101,11 +115,10 @@ const Cart = () => {
                   onBlur={() => handleChangeQuantity(item.id, item.quantity)} 
                   style={{ width: '50px', textAlign: 'center' }}
                 />
-                {/* <button className="btn btn-sm btn-secondary" onClick={() => handleIncrement(item.id)}>+</button> */}
               </td>
               <td>{item.price * item.quantity} TL</td>
               <td>
-                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(item.id)}>Sil</button>
+                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(item.id)}><FaTrash /></button>
               </td>
             </tr>
           ))}
@@ -118,6 +131,19 @@ const Cart = () => {
           </tr>
         </tfoot>
       </table>
+    </div>
+    <div className="text-center mt-4">
+        <button className="btn btn-danger" onClick={handleClearCart}>
+          Sepeti Temizle
+        </button>
+    </div>
+    <div className="text-center mt-4">
+        <Link to="/payment">
+          <button className="btn btn-success" >
+            Ödeme Yap
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
