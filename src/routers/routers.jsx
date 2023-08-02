@@ -9,7 +9,7 @@ import Cart from '../pages/cart/cart';
 import Favori from '../pages/favoritepage/favorite';
 import Admin from '../pages/AdminPanel/AdminPanel';
 import Payment from '../pages/Payment/Payment';
-
+import AboutUs from '../pages/AboutUs/AboutUs'
 const AppRouter = (products) => {
   return (
     <Router>
@@ -23,6 +23,7 @@ const AppRouter = (products) => {
         <Route path="/favori" element={<Favori />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
     </Router>
   );

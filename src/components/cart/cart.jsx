@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/firebase';
 import { collection, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { FaShoppingBasket, FaTrash} from 'react-icons/fa';
+import {Title } from '../../components/products/cardstyled';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -87,7 +88,7 @@ const Cart = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="mb-3"><FaShoppingBasket /> Sepet </h1>
+      <Title className="mb-3"><FaShoppingBasket /> SEPET </Title>
       <div className="table-responsive">
       <table className="table table-bordered table-hover">
         <thead className="thead-light">

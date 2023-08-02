@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import { Button } from "../../components/products/cardstyled";
+import { Button, Title } from "../../components/products/cardstyled";
 import { db, auth } from "../../firebase/firebase";
 import { useFormik } from "formik";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -86,7 +86,7 @@ const CheckoutPage = () => {
 
   return (
     <div className="container my-5">
-      <h2>ÖDEME</h2>
+      <Title>ÖDEME</Title>
       <div className="row">
         <div className="col-md-4 border p-4 rounded-5">
           {paymentCompleted ? (
