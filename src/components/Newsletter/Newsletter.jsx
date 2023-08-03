@@ -18,12 +18,12 @@ const Newsletter = () => {
   };
 
   return (
-    <div className=" py-5 my-5">
+    <div className="py-5 my-5">
       <Container>
-        <Title className="text-center mb-4">İletişim</Title>
         <Row className="justify-content-center">
           <Col md={6}>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="border p-5 rounded-5">
+              <Title className="text-center mb-4">İletişim</Title>
               <Form.Group controlId="email">
                 <Form.Label>E-posta Adresiniz</Form.Label>
                 <Form.Control

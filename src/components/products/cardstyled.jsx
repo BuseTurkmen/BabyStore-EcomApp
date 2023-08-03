@@ -51,6 +51,7 @@ export const Section = styled.div`
 `; 
 export const FavoriPict = styled.img`
   display:flex;
-  
+  margin: auto;
+  width: 60%;
+  height: auto;
 `; 
-

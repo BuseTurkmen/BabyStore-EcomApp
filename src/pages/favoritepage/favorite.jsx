@@ -4,7 +4,7 @@ import { collection, getDocs, deleteDoc, addDoc } from 'firebase/firestore';
 import { Card, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import foto6 from '../../resimler/foto6.jpg'
-import {Button, CardText, CardTitle, CardPrice, FavoriPict} from '../../components/products/cardstyled';
+import {Button, CardText, CardTitle, CardPrice, FavoriPict, Title} from '../../components/products/cardstyled';
 import { FaTrash } from 'react-icons/fa';
 
 const Favorites = () => {
@@ -58,35 +58,44 @@ const Favorites = () => {
 
   return (
     <div className="container mt-4">
-      <div className='mx-auto' >
+      <div className="col-12 my-3">
         <FavoriPict
         alt='foto'
         src={foto6}
         />
       </div>
-      <h1>Favoriler</h1>
+      <Title>FAVORİLER</Title>
       <div className="row my-4">
-        {favoritesItems.map ((product) => (
-          <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
-            <Card style={{ marginBottom: "16px"}} >
-              <Card.Body className='text-center'>
-                <img src={product.picture} alt={product.name} style={{ width: "100%" }}/>
-                <CardTitle>{product.name}</CardTitle>
-                <CardText>{product.category}</CardText>
-                <CardPrice>{product.price} TL</CardPrice>
-              </Card.Body>
-              <div className='mx-3 my-3'>
-              <Link to={`/products/${product.id}`}>
-                <Button>İncele</Button>
-              </Link>
-              <Link> 
-                <FaTrash onClick={() => handleDelete(product.id)}/>
-              </Link>
-              <Button variant="success" onClick={() => addToCart(product)}>Sepete Ekle</Button>
-              </div>
-            </Card>
-          </Col>
-        ))}
+        {favoritesItems.length === 0 ? (
+          <div className="col-12 text-center my-5">
+            <CardTitle>Favoriler Listeniz Boş, Ürünlerimize Göz Atın!</CardTitle>
+            <Link to={`/products`}>
+              <Button>Ürünler</Button>
+            </Link>
+          </div>
+        ) : (
+          favoritesItems.map((product) => (
+            <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
+              <Card style={{marginBottom: "16px" }}>
+                <Card.Body className='text-center'>
+                  <img src={product.picture} alt={product.name} style={{ width: "100%" }}/>
+                  <CardTitle>{product.name}</CardTitle>
+                  <CardText>{product.category}</CardText>
+                  <CardPrice>{product.price} TL</CardPrice>
+                </Card.Body>
+                <div className='mx-3 my-3'>
+                  <Link to={`/products/${product.id}`}>
+                    <Button>İncele</Button>
+                  </Link>
+                  <Link> 
+                    <FaTrash onClick={() => handleDelete(product.id)}/>
+                  </Link>
+                  <Button variant="success" onClick={() => addToCart(product)}>Sepete Ekle</Button>
+                </div>
+              </Card>
+            </Col>
+          ))
+        )}
       </div>
     </div>
   );

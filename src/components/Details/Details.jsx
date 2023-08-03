@@ -5,13 +5,16 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc, collection, addDoc, getDocs } from 'firebase/firestore';
 import { Carousel, Container, Row, Col, Form, Card } from 'react-bootstrap';
 import { FaHeart } from 'react-icons/fa';
-import { CardText, CardTitle, CardPrice, Button } from '../products/cardstyled';
+import { CardText, CardTitle, CardPrice, Button, Title } from '../products/cardstyled';
+import { useSelector, useDispatch } from 'react-redux';
+import { addComment } from '../../redux/slice/commentsSlice'; 
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
-  const [comments, setComments] = useState([]);
+  const dispatch = useDispatch();
+  const comments = useSelector((state) => state.comments[productId] || []);
   const [newComment, setNewComment] = useState('');
+  const [product, setProduct] = useState(null);
   const [randomProducts, setRandomProducts] = useState([]);
 
   useEffect(() => {
@@ -72,16 +75,16 @@ const ProductDetailPage = () => {
       try {
         await addDoc(collection(db, "favorites"), product);
         setCartItems([...cartItems, product]);
-        // localStorage.setItem('cartItems', JSON.stringify([...cartItems, product]));
       } catch (error) {
         console.error('Error adding product to cart:', error);
       }
     }
   };
+  
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (newComment.trim() !== '') {
-      setComments([...comments, newComment]);
+      dispatch(addComment({ productId, comment: newComment }));
       setNewComment('');
     }
   };
@@ -101,14 +104,14 @@ const ProductDetailPage = () => {
               </Carousel>
             </Col>
             <Col xs={12} md={6}>
-              <CardTitle>{product.name}</CardTitle>
+              <Title>{product.name}</Title>
               <CardText>{product.category}</CardText>
               <CardText>{product.description}</CardText>
               <CardPrice>{product.price} TL</CardPrice>
-              <Link className='d-flex'>
+              <Link className='mx-3'>
                 <FaHeart 
                 onClick={() => addToFavorite(product)}
-                style={{color:'pink'}}
+                style={{color:'grey'}}
                 />
               </Link>
               <Button onClick={() => addToCart(product)}>Sepete Ekle</Button>
@@ -116,7 +119,7 @@ const ProductDetailPage = () => {
           </Row>
           <Row>
             <Col xs={12} className='mt-5'>
-              <h4>Kullanıcı Yorumları</h4>
+              <Title>Kullanıcı Yorumları</Title>
               <ul>
                 {comments.map((comment, index) => (
                   <li key={index}>{comment}</li>
@@ -124,7 +127,6 @@ const ProductDetailPage = () => {
               </ul>
               <Form onSubmit={handleCommentSubmit}>
                 <Form.Group controlId="commentInput" className='d-flex'>
-                  {/* <Form.Label>Yorum Yap</Form.Label> */}
                   <Form.Control
                     type="text"
                     value={newComment}
@@ -137,7 +139,7 @@ const ProductDetailPage = () => {
           </Row>
           <Row>
             <Col xs={12} className='my-5'>
-              <h4>Diğer Ürünler</h4>
+              <Title>Diğer Ürünler</Title>
               <Row className='mt-4'>
                 {randomProducts.map((product) => (
                   <Col key={product.id} xs={12} sm={6} md={4} lg={3}>

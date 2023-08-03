@@ -5,18 +5,18 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: 'Serpil Öztürk',
-      testimonial: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus justo et dignissim euismod. Nulla facilisi.',
+      name: 'Burcu Türkmen',
+      testimonial: '"Bu sitede yaptığım alışverişlerde müşteri memnuniyeti odaklı hizmetle karşılaştım. Ürünler sorunsuz teslim edildi ve çok memnun kaldım." ',
     },
     {
       id: 2,
-      name: 'Burcu Türkmen',
-      testimonial: 'Fusce vel dui eu mauris facilisis posuere in nec arcu. Quisque vel nunc eu metus tincidunt congue a ut metus.',
+      name: 'Sevgi Öztürk',
+      testimonial: '"Bebeğimin sağlık ve güvenliği benim için en önemli öncelik. Buradan aldığım bebek güvenlik ürünleriyle içim rahat. Teşekkür ederim!" ',
     },
     {
       id: 3,
-      name: 'Mike Johnson',
-      testimonial: 'Duis malesuada justo a erat euismod, vel gravida felis dictum. Pellentesque sit amet odio in elit rhoncus ullamcorper.',
+      name: 'İsmail Sabri',
+      testimonial: '"Bebeğim için ihtiyacım olan tüm ürünleri bu siteden alıyorum. Ürünler kaliteli, fiyatlar uygun ve kargo hızı harika. Kesinlikle güvenilir bir alışveriş platformu!"',
     },
   ];
 

@@ -5,9 +5,12 @@ import { Card, Container, Row, Col, Form } from 'react-bootstrap';
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { FaHeart } from 'react-icons/fa';
 import {Button, CardText, CardTitle, CardPrice} from './cardstyled';
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../redux/slice/productsReducer";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products.products);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -17,7 +20,7 @@ const Products = () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'products'));
       const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setProducts(newData);
+      dispatch(setProducts(newData));
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -67,9 +70,8 @@ const Products = () => {
       try {
         await addDoc(collection(db, "basket"), product);
         setCartItems([...cartItems, product]);
-        // localStorage.setItem('cartItems', JSON.stringify([...cartItems, product]));
       } catch (error) {
-        console.error('Error adding product to cart:', error);
+        console.error('Hata:', error);
       }
     }
   };
@@ -80,9 +82,8 @@ const Products = () => {
       try {
         await addDoc(collection(db, "favorites"), product);
         setCartItems([...cartItems, product]);
-        // localStorage.setItem('cartItems', JSON.stringify([...cartItems, product]));
       } catch (error) {
-        console.error('Error adding product to cart:', error);
+        console.error('hata:', error);
       }
     }
   };
@@ -123,7 +124,6 @@ const Products = () => {
               <option value="Bebek Arabası">Bebek Arabası</option>
             </Form.Control>
           </Form.Group>
-          
           <Form.Group controlId="sortSelect" className='my-3'>
             <Form.Label>Ürünleri sırala:</Form.Label>
             <Form.Control

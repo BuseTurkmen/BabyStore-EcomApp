@@ -7,8 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthenticatedNavbar from '../Authnav/AuthNav';
 import { useNavigate } from 'react-router-dom'; 
-import AdminPanelLayout from '../../pages/AdminPanel/AdminPanel'
-import {Button, CardTitle} from '../products/cardstyled';
+import AdminPanel from '../../pages/AdminPanel/AdminPanel'
+import {Button, CardTitle, CardText} from '../products/cardstyled';
 
 const LoginForm = () => {
   const [user, setUser] = useState(null);
@@ -20,70 +20,40 @@ const LoginForm = () => {
     },
     onSubmit: (values) => {
       const { email, password } = values;
-
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           setUser(user);
-          toast.success('Giriş yapıldı');
+          toast.success('Giriş yapıldı. Hoş geldiniz.');
+          setTimeout(() => navigate('/products'), 2000); 
+          if (user.email === 'admin@gmail.com') {
+            setTimeout(() => navigate('/admin'), 2000); 
+          }
         })
         .catch((error) => {
           setUser(null);
-          toast.error('Giriş yapılamadı: ' + error.message);
+          toast.error('Giriş yapılamadı. Kullanıcı kayıtlı değil. Kayıt olduktan sonra tekrar deneyiniz.');
         });
     },
     validate: (values) => {
       let errors = {};
-
       if (!values.email) {
         errors.email = 'E-posta alanı zorunludur.';
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
         errors.email = 'Geçerli bir e-posta adresi giriniz.';
       }
-
       if (!values.password) {
         errors.password = 'Şifre alanı zorunludur.';
       } else if (values.password.length < 6) {
         errors.password = 'Şifre en az 6 karakter olmalıdır.';
       }
-
       return errors;
     }
   });
   const handleLogout = () => {
     setUser(null);
   };
-  const handleAdminLogin = async (email, password) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
 
-      setUser(user);
-
-      if (user.email === 'admin@gmail.com') {
-        navigate('/admin');
-      } else {
-        toast.success('Giriş yapıldı. Hoş geldiniz, ' + user.displayName || '');
-      }
-
-    } catch (error) {
-      setUser(null);
-      toast.error('Giriş yapılamadı: ' + error.message);
-    }
-  };
-
-  if (user) {
-    return (
-      <>
-        {user.email === 'admin@gmail.com' ? (
-          <AdminPanelLayout handleLogout={handleLogout} />
-        ) : (
-          <AuthenticatedNavbar userName={user.displayName || ''} handleLogout={handleLogout} />
-        )}
-      </>
-    );
-  }
-  
   return (
     <>
       <form className="border border-secondray rounded-5 p-3" onSubmit={formik.handleSubmit}>
@@ -120,7 +90,10 @@ const LoginForm = () => {
             <div>{formik.errors.password}</div>
           ) : null}
         </div>
-        <Button className='mt-4' type="submit">Giriş Yap</Button>
+        <Button className='my-4' type="submit">Giriş Yap</Button>
+        <div className="text-center">
+          <CardText>Kayıtlı Değilseniz<button className="text-danger bg-light rounded border-light" onClick={() => navigate('/signup')}>Kayıt Olun</button></CardText>
+        </div>
       </form>
       <ToastContainer />
     </>

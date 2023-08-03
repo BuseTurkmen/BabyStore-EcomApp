@@ -37,7 +37,7 @@ const Footer = () => {
             <h5>İletişim</h5>
             <p>Adres: BabyStore Mahallesi, BabyStore Caddesi No: 123, İstanbul</p>
             <p>Telefon: 0 (111) 111 11 11</p>
-            <p>E-posta: info@bebekstore.com</p>
+            <p>E-posta: info@babystore.com</p>
           </Col>
         </Row>
       </Container>

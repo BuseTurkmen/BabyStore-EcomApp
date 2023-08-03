@@ -15,7 +15,6 @@ const Cart = () => {
       const querySnapshot = await getDocs(collection(db, 'basket'));
       const newData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data(), quantity: 1 }));
       setCartItems(newData);
-      console.log('Firestore veritabanında "basket" koleksiyonu:', newData);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -53,11 +52,9 @@ const Cart = () => {
       const querySnapshot = await getDocs(collection(db, 'basket'));
       const documentToDelete = querySnapshot.docs.find((doc) => doc.data().id === id);
       if (!documentToDelete) {
-        console.error('Belge bulunamadı:', id);
         return;
       }
       await deleteDoc(documentToDelete.ref);
-      console.log('Belge başarıyla silindi:', id);
     } catch (error) {
       console.error('Hata oluştu:', error);
       return;
@@ -72,7 +69,6 @@ const Cart = () => {
       const deletePromises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
       await Promise.all(deletePromises);
       setCartItems([]);
-      console.log('Sepet başarıyla temizlendi.');
     } catch (error) {
       console.error('Hata oluştu:', error);
     }
@@ -133,7 +129,8 @@ const Cart = () => {
         </tfoot>
       </table>
     </div>
-    <div className="text-center mt-4">
+    <div className='d-flex justify-content-end'>
+    <div className="text-center mt-4 mx-3">
         <button className="btn btn-danger" onClick={handleClearCart}>
           Sepeti Temizle
         </button>
@@ -144,7 +141,8 @@ const Cart = () => {
             Ödeme Yap
           </button>
         </Link>
-      </div>
+    </div>
+    </div>
     </div>
   );
 };
