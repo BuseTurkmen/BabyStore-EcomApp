@@ -1,6 +1,6 @@
-### BabyStore E-commerce App
+## BabyStore E-commerce App
 Merhabalar, stajım kapsamında bir js kütüphanesi olan react ile e-ticaret sitesi projesi hazırladım. 
-Proje url: ()
+Proje url:  (https://babystorebybuse.netlify.app/ )
 ## Açıklama
 *Bu site bebek ve çocuklar ürünleri satan BabyStore adında bir e-ticaret sitesidir. 
 *Bu sitede veri tabanı olarak firebase kullanılmıştır.
@@ -9,7 +9,6 @@ Proje url: ()
 *Ürünlere yorum yapılabilmektedir.
 *Kullanıcı admin ise ürünlere ekleme veya çıkartma yapılamektedir. 
 
-## Kullanıcı Bilgileri
 ## Admin Girişi
 eposta: admin@gmail.com
 sifre: admin123
@@ -32,3 +31,4 @@ sifre: admin123
 - Sepette ürün yoksa ödeme yap butonu çalışmaz.
 - Başarıyla kayıt yapıldıktan sonra giriş yap sayfasına yönlendirilir, giriş başarıyla yapıldıktan sonra ürünler sayfasına yönlendirilir.
 - Admin girişi yapıldığında admin paneline yönlendirilir.
+- Kullanıcı giriş yaptığında navbar değişmektedir ve kullanıcı epostası navbarda görümür olmaktadır.
