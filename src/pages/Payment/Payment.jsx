@@ -2,24 +2,27 @@ import { collection, getDocs } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { Button, Title } from "../../components/products/cardstyled";
-import { db, auth } from "../../firebase/firebase";
+import { db, auth} from "../../firebase/firebase";
 import { useFormik } from "formik";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import {deleteDoc, writeBatch } from "firebase/firestore";
 
 const CheckoutPage = () => {
   const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const { currentUser } = auth;
   const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const [isCartEmpty, setIsCartEmpty] = useState(true);
+  const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
 
   const fetchData = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "basket"));
       const newData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data(), quantity: 1 }));
       setCartItems(newData);
-      console.log('Firestore veritabanında "basket" koleksiyonu:', newData);
+      setIsCartEmpty(newData.length === 0);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -31,19 +34,45 @@ const CheckoutPage = () => {
 
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
  
-//   const clearCart = async () => {
-//     try {
-//       const querySnapshot = await getDocs(collection(db, "basket"));
-//       const batch = db.batch();
-//       querySnapshot.docs.forEach((doc) => batch.delete(doc.ref));
-//       await batch.commit();
-//       setCartItems([]); 
-//       console.log("Cart cleared.");
-//     } catch (error) {
-//       console.error("Error clearing cart:", error);
-//     }
-//   };
-
+  const clearCart = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "basket"));
+      const batch = writeBatch(db);
+      querySnapshot.docs.forEach((doc) => batch.delete(doc.ref));
+      await batch.commit();
+      setCartItems([]); 
+    } catch (error) {
+      console.error("Error clearing the cart:", error);
+    }
+  };
+  
+  const clearBasketCollection = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "basket"));
+      const batch = db.batch();
+      querySnapshot.docs.forEach((doc) => batch.delete(doc.ref));
+      await batch.commit();
+      console.log("Basket collection cleared.");
+    } catch (error) {
+      console.error("Error clearing the basket collection:", error);
+    }
+  };
+  
+  const handlePayment = () => {
+    console.log("isCartEmpty:", isCartEmpty);
+    console.log("isTransactionSuccess:", isTransactionSuccess);
+    if (!isCartEmpty) {
+      setTimeout(() => {
+        setIsTransactionSuccess(true);
+        toast.success("Alışveriş tamamlandı, güle güle kullanın!");
+        clearCart();
+        clearBasketCollection(); 
+      }, 2000); 
+    } else {
+      console.log("The cart is empty. Cannot proceed to payment.");
+    }
+  };
+  
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -61,7 +90,7 @@ const CheckoutPage = () => {
         setUser(user);
         setPaymentCompleted(true);
         toast.success("Alışveriş tamamlandı, güle güle kullanın!");
-        // await clearCart();
+        await clearCart();
       } catch (error) {
         setUser(null);
         toast.error("Kullanıcı kayıtlı değil. Kayıt olup tekrar deneyiniz.");

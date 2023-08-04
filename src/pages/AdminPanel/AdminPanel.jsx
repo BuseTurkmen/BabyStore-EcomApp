@@ -4,18 +4,18 @@ import { Container, Row, Col, Form, Nav } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../redux/slice/productsReducer";
 import { collection, addDoc, getDocs, doc, deleteDoc } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { setUsers } from "../../redux/slice/userSlice";
+
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import {Button, Title, CardTitle} from '../../components/products/cardstyled';
 import { FaTrash} from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; 
 
 const AdminPanel = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const [selectedSection, setSelectedSection] = useState('products');
-  // const users = useSelector((state) => state.user.users); 
+  const navigate = useNavigate(); 
 
   const fetchData = async () => {
     try {
@@ -23,7 +23,7 @@ const AdminPanel = () => {
       const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       dispatch(setProducts(newData));
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('Error fetching:', error);
     }
   };
 
@@ -75,13 +75,17 @@ const AdminPanel = () => {
   };
 
   const handleLogout = () => {
-    auth.signOut();
+    auth
+      .signOut()
+      .then(() => {
+        navigate('/');
+      })
   };
 
   return (
     <Container>
       <Row>
-        <Col xs={3} md={2} className="">
+        <Col xs={12} md={3} className="">
           <Nav className="flex-column border border-danger rounded-3 p-3 text-center my-5">
           <CardTitle className='border-bottom '>Admin Paneli</CardTitle>
             <Nav.Item>
@@ -116,11 +120,12 @@ const AdminPanel = () => {
             </Nav.Item>
           </Nav>
         </Col>
-        <Col xs={9} md={10} className='my-5'>
+        <Col xs={12} md={9} className='my-5'>
           {selectedSection === 'products' && (
             <>
               <Title>Ürünler</Title>
-              <table className="table">
+              <div className="table-responsive">
+              <table className="table table-responsive"> 
                 <thead>
                   <tr>
                     <th>Ürün Resmi</th>
@@ -134,10 +139,10 @@ const AdminPanel = () => {
                 <tbody>
                   {products.map((products) => (
                     <tr key={products.id} className="align-middle">
-                      <td style= {{ width: '20%' }}><img src={products.picture} style={{ width: '100%' }}  alt={products.name} /></td>
+                      <td style= {{ width: '15%' }}><img src={products.picture} style={{ width: '100%' }}  alt={products.name} /></td>
                       <td>{products.name}</td>
                       <td>{products.category}</td>
-                      <td style={{ width: '20%' }}>{products.description}</td>
+                      <td style={{ width: '25%' }}>{products.description}</td>
                       <td>{products.price} TL</td>
                       <td>
                         <button className="btn btn-sm btn-danger" onClick={() => handleDeleteProduct(products.id)}><FaTrash /></button>
@@ -146,6 +151,7 @@ const AdminPanel = () => {
                   ))}
                 </tbody>
               </table>
+              </div>
             </>
           )}
           {selectedSection === 'addProduct' && (
@@ -206,7 +212,8 @@ const AdminPanel = () => {
           {selectedSection === 'users' && (
             <>
               <Title>Kullanıcılar</Title>
-              <table className="table">
+              <div className="table-responsive">
+              <table className="table table-responsive">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -226,6 +233,7 @@ const AdminPanel = () => {
                   ))} */}
                 </tbody>
               </table>
+              </div>
             </>
           )}
         </Col>

@@ -9,12 +9,14 @@ import {Title } from '../../components/products/cardstyled';
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isCartEmpty, setIsCartEmpty] = useState(true);
 
   const fetchData = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'basket'));
       const newData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data(), quantity: 1 }));
       setCartItems(newData);
+      setIsCartEmpty(newData.length === 0);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -63,6 +65,13 @@ const Cart = () => {
     setCartItems(updatedCartItems);
   };
 
+  const handlePayment = () => {
+    if (!isCartEmpty) {
+    } else {
+      console.log("Sepet boş.");
+    }
+  };
+  
   const handleClearCart = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'basket'));
@@ -136,14 +145,20 @@ const Cart = () => {
         </button>
     </div>
     <div className="text-center mt-4">
+      {isCartEmpty ? (
+      <button className="btn btn-success" disabled>
+        Ödeme Yap
+        </button>
+        ) : (
         <Link to="/payment">
-          <button className="btn btn-success" >
+          <button className="btn btn-success">
             Ödeme Yap
-          </button>
+            </button>
         </Link>
+        )}
+      </div>
     </div>
-    </div>
-    </div>
+  </div>
   );
 };
 

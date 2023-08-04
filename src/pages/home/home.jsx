@@ -41,7 +41,7 @@ const Home = () => {
             src="https://smoochbabies.com/cdn/shop/files/Untitled-4-02_40376124-3212-4d7d-9d9b-25e880c3abaf.png?v=1679935341"
             alt="First slide"
           />
-          <Carousel.Caption style={{color:'#931b26'}}>
+          <Carousel.Caption style={{color:'#931b26'}} className='w-10'>
             <h3>ALIŞVERİŞE BAŞLA!</h3>
             <Link to={`/products`}>
               <Button>Ürünler</Button>
@@ -55,9 +55,8 @@ const Home = () => {
             alt="Second slide"
           />
           <Carousel.Caption>
-            {/* <h3>OYUNCAKLARDA 30% İNDİRİM</h3> */}
             <Link to={`/products`}>
-              <Button>EN YENİ OYUNCAKLAR BURADA</Button>
+              <Button>OYUNCAKLAR İÇİN TIKLA</Button>
             </Link>
           </Carousel.Caption>
         </Carousel.Item>
@@ -69,15 +68,11 @@ const Home = () => {
           />
           <Carousel.Caption style={{color:'#003a8f'}}>
             <h3>TÜM BEBEK KIYAFETLERİNDE 30% İNDİRİM !</h3>
-            {/* <Link to={`/products`}>
-              <button>Ürünler</button>
-            </Link> */}
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
       <div className="container my-5">
         <Row className='my-5'>
-          {/* <h2>KATEGORİLER</h2> */}
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-success"
@@ -113,7 +108,6 @@ const Home = () => {
               alt="Category 5"
             />
           </Col>
-
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-secondary"
@@ -177,13 +171,6 @@ const Home = () => {
         </Col>
       </Row>
       </Section>
-      {/* <Col xs={12} md={6} className="mb-4 mb-md-0">
-        <img
-        src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/09/06.gif"
-        alt="Resim"
-        className="img-fluid"
-        />
-      </Col> */}
       <Testimonials />
       <Newsletter />
       </Container>
