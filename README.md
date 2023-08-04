@@ -2,12 +2,12 @@
 Merhabalar, stajım kapsamında bir js kütüphanesi olan react ile e-ticaret sitesi projesi hazırladım. 
 Proje url:  (https://babystorebybuse.netlify.app/ )
 ## Açıklama
--Bu site bebek ve çocuklar ürünleri satan BabyStore adında bir e-ticaret sitesidir. 
--Bu sitede veri tabanı olarak firebase kullanılmıştır.
--Siteye kayıt formunu doldurak kayıt olabilirsiniz. Giriş yapmadan favorilere ve sepete ürün eklebilirsiniz fakat ödeme yapamak için kayıtlı olduğunuz bir e-postanız bulunmalıdır. 
--Sıralama, filtreleme, arama özellikleri product sayfasındadır. 
--Ürünlere yorum yapılabilmektedir.
--Kullanıcı admin ise ürünlere ekleme veya çıkartma yapılamektedir. 
+- Bu site bebek ve çocuklar ürünleri satan BabyStore adında bir e-ticaret sitesidir. 
+- Bu sitede veri tabanı olarak firebase kullanılmıştır.
+- Siteye kayıt formunu doldurak kayıt olabilirsiniz. Giriş yapmadan favorilere ve sepete ürün eklebilirsiniz fakat ödeme yapamak için kayıtlı olduğunuz bir e-postanız bulunmalıdır. 
+- Sıralama, filtreleme, arama özellikleri product sayfasındadır. 
+- Ürünlere yorum yapılabilmektedir.
+- Kullanıcı admin ise ürünlere ekleme veya çıkartma yapılamektedir. 
 
 ## Admin Girişi
 eposta: admin@gmail.com
