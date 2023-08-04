@@ -84,7 +84,7 @@ const ProductDetailPage = () => {
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (newComment.trim() !== '') {
-      dispatch(addComment({ productId, comment: newComment }));
+      // dispatch(addComment({ productId, comment: newComment }));
       setNewComment('');
     }
   };

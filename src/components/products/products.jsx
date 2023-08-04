@@ -20,7 +20,7 @@ const Products = () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'products'));
       const newData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      dispatch(setProducts(newData));
+      // dispatch(setProducts(newData));
     } catch (error) {
       console.error('Error fetching products:', error);
     }

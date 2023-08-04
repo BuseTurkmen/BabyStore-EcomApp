@@ -5,12 +5,14 @@ import { auth } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthenticatedNavbar from '../Authnav/AuthNav';
 import { useNavigate } from 'react-router-dom'; 
 import AdminPanel from '../../pages/AdminPanel/AdminPanel'
 import {Button, CardTitle, CardText} from '../products/cardstyled';
+import { useDispatch, useSelector } from "react-redux";
+import saveUser from '../../redux/slice/loginSlice'
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const formik = useFormik({
@@ -24,11 +26,16 @@ const LoginForm = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           setUser(user);
+          console.log(user);
+          dispatch(saveUser({name: user.email}))
           toast.success('Giriş yapıldı. Hoş geldiniz.');
           setTimeout(() => navigate('/products'), 2000); 
           if (user.email === 'admin@gmail.com') {
             setTimeout(() => navigate('/admin'), 2000); 
           }
+          console.log(user);
+          // dispatch(saveUser({name: user.email}))
+
         })
         .catch((error) => {
           setUser(null);
