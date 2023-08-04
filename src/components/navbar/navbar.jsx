@@ -11,8 +11,8 @@ import AuthMenu from './AuthMenu';
 function MyNavbar() {
   const user = useSelector((state) => state.login.user);
   useEffect(()=>{
-    debugger
-    console.log('%cnavbar.jsx line:18 saveUser', 'color: #007acc;', user);
+    // debugger
+    // console.log('%cnavbar.jsx line:18 saveUser', 'color: #007acc;', user);
   },[user] ) 
 
 

@@ -11,7 +11,7 @@ const AuthMenu = ({ userEmail }) => {
   const [user, setUser] = useState(storeUser); 
   const dispatch = useDispatch()
   useEffect(()=>{
-    console.log('%cAuthMenu.jsx line:18 saveUser', 'color: #007acc;', user);
+    // console.log('%cAuthMenu.jsx line:18 saveUser', 'color: #007acc;', user);
   },[user] )
   const handleLogoutClick = () => {
     dispatch(saveUser(null))
@@ -22,9 +22,9 @@ const AuthMenu = ({ userEmail }) => {
       <Nav className="ml-auto" style={{ fontSize: '20px' }}>
 
         <>
-          {user && user?.name === 'admin@gmail.com' ? (
+          {/* {user && user?.name === 'admin@gmail.com' ? (
             <AdminPanelLayout handleLogout={handleLogoutClick} />
-          ) : (
+          ) : ( */}
             <>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -32,14 +32,14 @@ const AuthMenu = ({ userEmail }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item>
-                    <Link class='nav-link' to="/profile" relative="path">
+                    <Link class='nav-link' to="" relative="path">
                     Profil
                   </Link></Dropdown.Item>
-                  <Dropdown.Item onClick={handleLogoutClick}>Log Out</Dropdown.Item>
+                  <Dropdown.Item onClick={handleLogoutClick}>Çıkış yap</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </>
-          )}
+          
         </>
         <Link class='nav-link' to="/favori" relative="path">
           <FaHeart />
