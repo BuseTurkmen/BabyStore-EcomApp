@@ -11,7 +11,6 @@ const AuthMenu = ({ userEmail }) => {
   const [user, setUser] = useState(storeUser); 
   const dispatch = useDispatch()
   useEffect(()=>{
-    debugger
     console.log('%cAuthMenu.jsx line:18 saveUser', 'color: #007acc;', user);
   },[user] )
   const handleLogoutClick = () => {
