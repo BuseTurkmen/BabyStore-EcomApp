@@ -7,7 +7,12 @@ import { FaArrowRight } from 'react-icons/fa';
 import Testimonials from '../../components/Testimonials/Testimonials'
 import Newsletter from '../../components/Newsletter/Newsletter'
 import {Button, CardText, CardTitle, CardPrice, Title, HomeButton, Img, Picture, Section } from '../../components/products/cardstyled';
-
+import cate1 from '../../resimler/cate1.jpg'
+import cate2 from '../../resimler/cate2.jpg'
+import cate3 from '../../resimler/cate3.jpg'
+import cate4 from '../../resimler/cate4.jpg'
+import cate5 from '../../resimler/cate5.jpg'
+import cate6 from '../../resimler/cate6.jpg'
 
 const Home = () => {
   const [randomProducts, setRandomProducts] = useState([]); 
@@ -76,42 +81,42 @@ const Home = () => {
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-success"
-              src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/06/cat-4.png"
+              src={cate1}
               alt="Category 1"
             />
           </Col>
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-info"
-              src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/06/cat-1.png"
+              src={cate2}
               alt="Category 2"
             />
           </Col>
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-danger"
-              src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/06/cat-6.png"
+              src={cate3}
               alt="Category 3"
             />
           </Col>
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-primary"
-              src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/06/cat-2.png"
+              src={cate4}
               alt="Category 4"
             />
           </Col>
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-warning"
-              src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/06/cat-3.png"
+              src={cate5}
               alt="Category 5"
             />
           </Col>
           <Col xs={6} md={2}>
             <img
               className="img-fluid bg-secondary"
-              src="http://demo.themepiko.com/kidstore/wp-content/uploads/2019/06/cat-5.png"
+              src={cate6}
               alt="Category 6"
             />
           </Col>
