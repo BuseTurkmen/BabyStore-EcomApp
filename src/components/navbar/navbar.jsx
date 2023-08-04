@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector } from 'react-redux';
 import { Navbar, Container } from 'react-bootstrap';
@@ -8,10 +9,12 @@ import UsersMenu from './UsersMenu';
 import AuthMenu from './AuthMenu';
 
 function MyNavbar() {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.login.user);
+  useEffect(()=>{
+    debugger
+    console.log('%cnavbar.jsx line:18 saveUser', 'color: #007acc;', user);
+  },[user] ) 
 
-  const handleLogout = () => {
-  };
 
   return (
     <Container>
@@ -26,8 +29,7 @@ function MyNavbar() {
             alt="logo"
           />
         </Navbar.Brand>
-        <UsersMenu />
-        {/* {user ? <UsersMenu /> : <AuthMenu handleLogout={handleLogout} />} */}
+        {user ? <AuthMenu /> : <UsersMenu /> }
       </Navbar>
     </Container>
   );

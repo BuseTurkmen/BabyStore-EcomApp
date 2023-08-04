@@ -12,7 +12,6 @@ import Payment from '../pages/Payment/Payment';
 import AboutUs from '../pages/AboutUs/AboutUs'
 const AppRouter = (products) => {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -25,7 +24,6 @@ const AppRouter = (products) => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/aboutus" element={<AboutUs />} />
       </Routes>
-    </Router>
   );
 };
 

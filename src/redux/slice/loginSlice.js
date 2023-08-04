@@ -5,7 +5,7 @@ const loginSlice = createSlice({
   initialState: initialState,
   reducers: {
     saveUser(state, action) {
-      state.user = {name:action.payload.name}
+      state.user = action.payload? {name:action.payload.name}:null
     },
   },
 });
