@@ -10,10 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Button, CardText, CardTitle} from '../products/cardstyled';
 import { useNavigate } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
-// import { setUser } from '../../redux/slice/userSlice';
+import { setUser } from '../../redux/slice/userSlice';
 
 const SignupForm = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate(); 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +29,7 @@ const SignupForm = () => {
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         toast.success('Kayıt başarılı');
-        // dispatch(setUser({ firstName, lastName, email }));
+        dispatch(setUser({ firstName, lastName, email }));
         setTimeout(() => {
           navigate('/login');
         }, 3000);
